@@ -1,0 +1,83 @@
+<?php
+/*
+  if (!isset($_SESSION['skin'])) {
+  session_start();
+  session_register('skin', 'jf');
+  }
+  if (isset($_POST['skin'])) {
+  $_SESSION['skin'] = $_POST['skin'];
+  }
+
+  $skin = $_SESSION['skin'];
+ */
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<?php
+include_once ("../classes/AdminMenu.class.php");
+include_once ("../classes/Head.class.php");
+include_once '../config/dbConfig.php';
+
+$page = 'index';
+$title = 'Admin';
+$header1 = "Jean-François Naudin&nbsp;<br/>Luthier de l'Yonne<br/>Administration du site";
+$siret_address = "Jean-François Naudin - Siret 519 912 133 000 13 - tel : 03 86 97 18 70 - 89510 VERON";
+$description = "Jean-François Naudin , Luthier de l'Yonne. Luthier de quatuor, accordeur et réparateur de piano. Restauration, création, location d'instruments.";
+$specificKeywords = "";
+?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php
+        $head = new Head();
+        $head->Show($description, $specificKeywords, 'jf');
+        ?>
+    </head>
+
+    <body>
+
+        <div id="wrapper" >
+            <div id="container">
+
+                <div id="leftcolumn">
+                    <?php
+                    $menu = new AdminMenu();
+                    echo $menu->Show($page);
+                    echo $menu->showSkins($skin);
+                    echo $menu->showValidators($page);
+                    ?>
+                </div>
+
+
+                <div id="rightcolumn">
+                    <div id="header">
+                        <div id="sitename"><h1><?php echo $header1; ?></h1></div>
+                    </div>
+
+                    <div id="content">
+
+                        <!-- jf_START_CONTENT -->
+
+                        <div id="jf_page_content_container">
+
+                            <h2>Index</h2>
+
+                            <div class="paragraph editable-text" >
+                                Admin en chantier.
+                            </div>
+                            <hr style=" clear: both; width: 100%; visibility: hidden; "/>
+
+                        </div>
+                    </div>
+
+
+                    <div id="footer">
+                        <span>
+                            <?php echo $siret_address; ?>
+                        </span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,11 @@
+
+Options +FollowSymLinks
+#RewriteCond %{HTTP_HOST} !^moulin-grande-planche\.w3bx\.com$
+#RewriteRule (.*) http://moulin-grande-planche\.w3bx\.com/$1 [R=permanent,L]
+
+#RewriteCond %{HTTP_HOST} !^mgp\.dev$
+#RewriteRule (.*) http://mgp\.dev/$1 [R=permanent,L]
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# This domain inherits the “PHP” package.
+# php -- END cPanel-generated handler, do not edit

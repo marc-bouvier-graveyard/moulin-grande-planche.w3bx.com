@@ -1,0 +1,47 @@
+<?php
+//error_reporting(E_ALL);
+/**for each image in the image folder generate thumbnail */
+function getDirectoryList($directory) {
+    /* create an array to hold directory list    */
+	$results = array();   
+	/* create a handler for the directory   */
+	$handler = opendir($directory); 
+	/*open directory and walk through the filenames   */
+	while ($file = readdir($handler)) {     
+	/* if file isn't this directory or its parent, add it to the results    */
+    if ($file != "." && $file != "..") {         
+	preg_match("/\.([^\.]+)$/", $file, $matches);        
+    /*if ($matches[1] == 'png' || $matches[1] == 'jpg')    */
+	if ($matches[1] == 'png') {        
+	$results[] = $file;         
+	}     
+	}  
+	} 
+	/* tidy up: close the handler  */
+	closedir($handler);   
+	/*done!  */
+	return $results;
+	}
+	$folder = 'images/thumbs620/';
+	foreach (getDirectoryList($folder) as $key => $value) 
+	{   
+	$img_url = $value;    
+	$max = 460;   
+	$ext = substr($value, (strlen($value) - 3));
+    $img = null;  
+	if ($ext == 'jpg') {  
+	$img = imagecreatefromjpeg($folder . $value); 
+	} else if ($ext == 'png') {    
+    $img = imagecreatefrompng($folder . $value);   
+	}    
+	/*    $x = imagesx($img);    $y = imagesy($img);    if ($x > $max or $y > $max) {        if ($x > $y) {            $nx = $max;            $ny = $y / ($x / $max);        } else {            $nx = $x / ($y / $max);            $ny = $max;        }    }    $nimg = imagecreatetruecolor($nx, $ny);    imagecopyresampled($nimg, $img, 0, 0, 0, 0, $nx, $ny, $x, $y);    if ($ext == 'jpg') {        imagejpeg($nimg, $folder . 'thumb_460_' . $value);    } else if ($ext == 'png') {        //imagepng($nimg,$folder.'thumb_460_'.$value);        imagejpeg($nimg, $folder . $value);    }     *     */   
+	if ($ext == 'jpg') {   
+	imagejpeg($nimg, $folder. $value);  
+	} else if ($ext == 'png') {  
+		/*imagepng($nimg,$folder.'thumb_460_'.$value);*/
+        $newName = substr($value, 0, (strlen($value) - 3)) . "jpg";
+        imagejpeg($img, $folder . $newName);
+        echo $folder . $newName."<br/><br/>";
+	}
+	}
+	?>

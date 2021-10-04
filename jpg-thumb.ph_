@@ -1,0 +1,31 @@
+<?php
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+$img_url =  $_GET['file'];
+header('Content-type: image/jpeg');
+$max = 300;
+$img = imagecreatefromjpeg($img_url);
+$x = imagesx($img);
+$y = imagesy($img);
+if($x>$max or $y>$max)
+{
+        if($x>$y)
+        {
+                $nx = $max;
+        $ny = $y/($x/$max);
+        }
+        else
+        {
+                $nx = $x/($y/$max);
+        $ny = $max;
+        }
+}
+$nimg = imagecreatetruecolor($nx,$ny);
+imagecopyresampled($nimg,$img,0,0,0,0,$nx,$ny,$x,$y);
+
+imagejpeg($nimg);
+
+
+?>
